@@ -13,6 +13,33 @@ class MainClass {
 	public static Random random = new Random();
 	public static CancellationTokenSource ts = new CancellationTokenSource();
 	public static Task debt;
+	public static int Salary = 0;
+
+	public static void Ask() {
+		Console.WriteLine("\n Salary? (40 hours) (Type 'none' for random generation) \n");
+		
+		string read = Console.ReadLine();
+		
+		if (read.ToLower() == "none") {
+			Console.WriteLine("\n Defaulting to random... \n");
+			return;
+		}
+
+		if (!int.TryParse(read, out Salary)) {
+			Console.WriteLine("\n Invalid salary, defaulting to random... \n");
+			return;
+		}
+		
+		if (Salary < 10000) {
+			Console.WriteLine("\n Too low salary, defaulting to random... \n");
+			return;
+		}
+		
+
+		Console.WriteLine($"\n Salary successfully set to ${Salary.ToString()} \n");
+		Salary /= 2080;
+		return;
+	}
 
 	public static void DebtCheck(Person person) {
 		for (int i = 0; i < 7; i++) {
@@ -28,11 +55,14 @@ class MainClass {
 	}
 
 	public static void Main(string[] args) {
+		Ask();
+
 		js.name = "Test Dummy";
 		js.balance = 0;
 		
 		while (true) {
 			int num;
+			int balDif;
 
 			if (js.debt) {
 				num = random.Next(125);
@@ -44,27 +74,29 @@ class MainClass {
 				}
 			}
 	
-
 			bool negative = (num <= 50);
 
 			if (negative == true) {
-				num = random.Next(100);
-
-				js.balance -= num;
+				balDif = random.Next(100);
+				js.balance -= balDif;
 
 				Console.WriteLine(js.balance.ToString());
 
 				Console.ForegroundColor = ConsoleColor.Red;
-				Console.WriteLine($"-{num.ToString()}");
+				Console.WriteLine($"-{balDif.ToString()}");
 			} else {
-				num = random.Next(100);
+				if (Salary != 0) {
+					balDif = Salary;
+				} else {
+					balDif = random.Next(100);
+				}
 
-				js.balance += num;
+				js.balance += balDif;
 
 				Console.WriteLine(js.balance.ToString());
 
 				Console.ForegroundColor = ConsoleColor.Green;
-				Console.WriteLine($"+{num.ToString()}");
+				Console.WriteLine($"+{balDif.ToString()}");
 			}
 			Console.ForegroundColor = ConsoleColor.White;
 
