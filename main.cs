@@ -32,9 +32,15 @@ class MainClass {
 		
 		if (Salary < 10000) {
 			Console.WriteLine("\n Too low salary, defaulting to random... \n");
+			Salary = 0;
 			return;
 		}
 		
+		if (Salary > 1000000) {
+			Console.WriteLine("\n Too high salary, defaulting to random... \n");
+			Salary = 0;
+			return;
+		}
 
 		Console.WriteLine($"\n Salary successfully set to ${Salary.ToString()} \n");
 		Salary /= 2080;
