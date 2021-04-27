@@ -15,7 +15,7 @@ class MainClass {
 	public static Task debt;
 
 	public static void DebtCheck(Person person) {
-		for (int i = 0; i < 6; i++) {
+		for (int i = 0; i < 7; i++) {
 			if (ts.Token.IsCancellationRequested) {
 				return;
 			}
@@ -72,6 +72,10 @@ class MainClass {
 				Console.WriteLine("\n In debt \n");
 				js.debt = true;
 					
+
+				ts = new CancellationTokenSource();
+				debt = null;
+
 				debt = Task.Factory.StartNew(() =>
 					DebtCheck(js),
 					ts.Token, 
